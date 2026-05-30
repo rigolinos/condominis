@@ -1,4 +1,4 @@
-import { login, signup } from './actions'
+import { LoginSignupContainer } from './LoginSignupContainer'
 
 export default async function LoginPage({
     searchParams,
@@ -8,53 +8,48 @@ export default async function LoginPage({
     const { message } = await searchParams
 
     return (
-        <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2 h-screen mx-auto">
-            <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-                <div className="flex flex-col mb-6 items-center">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Condominis</h1>
-                    <p className="text-gray-500 text-sm">Acesse sua conta para continuar</p>
+        <div className="min-h-screen w-full flex bg-[#030712] text-white selection:bg-blue-500/30 overflow-hidden relative">
+            {/* Background Decorators */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/20 blur-[120px] mix-blend-screen pointer-events-none animate-pulse-slow object-cover" />
+            <div className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[50%] rounded-full bg-indigo-600/10 blur-[120px] mix-blend-screen pointer-events-none animate-pulse-slow object-cover" style={{ animationDelay: '2s' }} />
+
+            {/* Left Column (Brand/Visuals) */}
+            <div className="hidden lg:flex w-1/2 flex-col justify-between p-12 relative z-10">
+                <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+                    <p className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">
+                        Condominis
+                    </p>
                 </div>
 
-                {message && (
-                    <div className="p-4 bg-red-50 text-red-600 rounded-md text-sm mb-4 border border-red-200">
-                        {message}
+                <div className="flex flex-col gap-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                    <h1 className="text-5xl xl:text-6xl font-medium leading-[1.1] tracking-tight">
+                        Gestão inteligente<br />
+                        <span className="text-gray-400">para o seu condomínio.</span>
+                    </h1>
+                    <p className="text-lg text-gray-500 max-w-md font-light">
+                        Simplificando a vida de síndicos, moradores e porteiros com tecnologia de ponta e design intuitivo.
+                    </p>
+                </div>
+
+                <div className="flex items-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+                    <div className="flex -space-x-4">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className={`w-10 h-10 rounded-full border-2 border-[#030712] bg-gray-800 flex items-center justify-center relative overflow-hidden`}>
+                                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20" />
+                                <span className="text-xs text-gray-400">M</span>
+                            </div>
+                        ))}
                     </div>
-                )}
-
-                <label className="text-md font-medium text-gray-700 mt-4" htmlFor="email">
-                    E-mail
-                </label>
-                <input
-                    className="rounded-md px-4 py-3 bg-gray-50 border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 text-gray-900 outline-none transition-all placeholder:text-gray-400"
-                    name="email"
-                    placeholder="seu@email.com"
-                    required
-                />
-                <label className="text-md font-medium text-gray-700 mt-4" htmlFor="password">
-                    Senha
-                </label>
-                <input
-                    className="rounded-md px-4 py-3 bg-gray-50 border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 text-gray-900 outline-none transition-all placeholder:text-gray-400"
-                    type="password"
-                    name="password"
-                    placeholder="••••••••"
-                    required
-                />
-                <div className="flex flex-col gap-3 mt-8">
-                    <button
-                        formAction={login}
-                        className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-3 text-lg font-medium transition-colors"
-                    >
-                        Entrar
-                    </button>
-                    <button
-                        formAction={signup}
-                        className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-md px-4 py-3 text-lg font-medium transition-colors"
-                    >
-                        Criar conta
-                    </button>
+                    <p className="text-sm font-medium text-gray-400">
+                        Junte-se a <span className="text-white">centenas</span> de condomínios
+                    </p>
                 </div>
-            </form>
+            </div>
+
+            {/* Right Column (Form) */}
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 relative z-10">
+                <LoginSignupContainer message={message} />
+            </div>
         </div>
     )
 }
